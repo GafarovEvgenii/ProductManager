@@ -8,7 +8,7 @@ public class Product {
     private int price;
 
 
-    public Product () {
+    public Product() {
     }
 
     public Product(int id, int price) {
@@ -38,6 +38,10 @@ public class Product {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public boolean matches(String search) {
+       return name.contains(search);
     }
 
 }

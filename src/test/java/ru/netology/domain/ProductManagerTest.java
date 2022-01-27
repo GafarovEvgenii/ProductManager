@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductManagerTest {
     private Repository repository = new Repository();
     private ProductManager manager = new ProductManager(repository);
+
     private Smartphone appleIphone12 = new Smartphone(1, 50000, "Apple", "Iphone 12" );
     private Smartphone samsungGalaxyA51 = new Smartphone(2, 25000, "Samsung", "Galaxy A51");
     private Book triompheArc = new Book(3, 250, "Remark","The arc de triomphe");

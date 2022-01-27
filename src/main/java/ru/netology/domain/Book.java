@@ -33,4 +33,9 @@ public class Book extends Product {
         this.bookName = bookName;
     }
 
+    @Override
+    public boolean matches (String search) {
+        return super.matches(search) || author.equals(search);
+    }
+
 }
