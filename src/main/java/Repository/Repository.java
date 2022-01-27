@@ -27,14 +27,6 @@ public class Repository {
         items = tmp;
     }
 
-    public Product searchById (int id){
-        for (Product item : items) {
-            if (item.getId() == id) {
-                return item;
-            }
-        }
-        return null;
-    }
 
     public Product[] findAll() {
         return items;

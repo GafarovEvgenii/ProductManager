@@ -4,16 +4,14 @@ import java.util.Objects;
 
 public class Smartphone extends Product {
     private String brand;
-    private String model;
 
     public Smartphone () {
         super();
     }
 
-    public Smartphone(int id, int price, String brand, String model) {
-        super(id, price);
+    public Smartphone(int id, String name, int price, String brand) {
+        super(id, name, price);
         this.brand = brand;
-        this.model = model;
     }
 
     public String getBrand() {
@@ -24,21 +22,33 @@ public class Smartphone extends Product {
         this.brand = brand;
     }
 
-    public String getModel() {
-        return model;
-    }
 
-    public void setModel(String model) {
-        this.model = model;
+    @Override
+    public boolean matches(String search) {
+        if (super.matches(search) || getBrand().contains(search)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean matches (String search) {
-        if (super.matches(search)) {
-           return true;
-        }
-        return brand.equals(search);
+    public String toString() {
+        return "Smartphone{" +
+                "brand='" + brand + '\'' +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Smartphone that = (Smartphone) o;
+        return Objects.equals(brand, that.brand);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), brand);
+    }
 }

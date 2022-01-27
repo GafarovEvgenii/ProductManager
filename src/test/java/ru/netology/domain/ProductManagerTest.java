@@ -9,73 +9,75 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProductManagerTest {
     private Repository repository = new Repository();
     private ProductManager manager = new ProductManager(repository);
+    private Book first = new Book(1, "Jane Air", 150, "Sharlotte Bronte");
+    private Book second = new Book(2, "Garry Potter", 200, "Joanne Rowling");
+    private Book third = new Book(3, "The wizard of Oz", 100, "L.F.Baum");
+    private Smartphone fourth = new Smartphone(4, "A12", 12000, "Sumsung");
+    private Smartphone fifth = new Smartphone(5, "iPhone13", 80000, "Apple");
+    private Smartphone sixth = new Smartphone(6, "Nova8", 39000, "Huawei");
 
-    private Smartphone appleIphone12 = new Smartphone(1, 50000, "Apple", "Iphone 12" );
-    private Smartphone samsungGalaxyA51 = new Smartphone(2, 25000, "Samsung", "Galaxy A51");
-    private Book triompheArc = new Book(3, 250, "Remark","The arc de triomphe");
-    private Book flowersForAlgernon = new Book(4, 300, "Daniel Keyes", "Flowers for Algernon");
-    private Smartphone appleIphone11 = new Smartphone(5, 37000, "Apple", "Iphone 11");
-    private Book nineteenEightyFour = new Book(6, 320, "George Orwell", "1984");
 
     @BeforeEach
-    public void setUp (){
-        manager.add(triompheArc);
-        manager.add(nineteenEightyFour);
-        manager.add(samsungGalaxyA51);
-        manager.add(appleIphone11);
-        manager.add(appleIphone12);
-        manager.add(flowersForAlgernon);
-        manager.add(new Product());
+    public void shouldStartManager() {
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+
     }
 
-
     @Test
-    public void shouldSearchSmartphoneApple (){
-        Product [] expected = new Product[] {appleIphone11, appleIphone12};
-        Product [] actual = manager.searchBy("Apple");
+    public void shouldSearchByText() {
+        Product[] expected = new Product[]{first};
+        Product[] actual = manager.searchBy("Sharlotte");
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldSearchSmartphoneModel (){
-        Product [] expected = new Product[] {samsungGalaxyA51};
-        Product [] actual = manager.searchBy("Galaxy A51");
+    public void shouldSearchByText2() {
+        Product[] expected = new Product[]{second};
+        Product[] actual = manager.searchBy("Joanne");
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldSearchSmartphoneSamsung (){
-        Product [] expected = new Product[] {samsungGalaxyA51};
-        Product [] actual = manager.searchBy("Samsung");
+    public void shouldSearchByText3() {
+        Product[] expected = new Product[]{fourth};
+        Product[] actual = manager.searchBy("A12");
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldSearchBook (){
-        Product [] expected = new Product[] {triompheArc};
-        Product [] actual = manager.searchBy("The arc de triomphe");
+    public void shouldSearchByText4() {
+        Product[] expected = new Product[]{fifth};
+        Product[] actual = manager.searchBy("Apple");
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldSearchAuthor (){
-        Product [] expected = new Product[] {flowersForAlgernon};
-        Product [] actual = manager.searchBy("Daniel Keyes");
+    public void shouldSearchByTextFalse() {
+        Product[] expected = new Product[]{};
+        Product[] actual = manager.searchBy("Dream");
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldSearchNonBook (){
-        Product [] expected = new Product[] {};
-        Product [] actual = manager.searchBy("Idiot");
+    public void shouldGetProducts() {
+        Product[] actual = manager.getAll();
+        Product[] expected = new Product[]{first, second, third, fourth, fifth, sixth};
         assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldSearchBookName (){
-        Product [] expected = new Product[] {nineteenEightyFour};
-        Product [] actual = manager.searchBy("1984");
+    public void shouldGetProductsAfterRemove() {
+        manager.removeById(1);
+        manager.removeById(3);
+        manager.removeById(4);
+        manager.removeById(6);
+        Product[] actual = manager.getAll();
+        Product[] expected = new Product[]{second, fifth};
         assertArrayEquals(expected, actual);
     }
-
 }

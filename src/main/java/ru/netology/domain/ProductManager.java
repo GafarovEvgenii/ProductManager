@@ -13,7 +13,7 @@ public class ProductManager {
         repository.save(item);
     }
 
-    public void removedByID (int id) {
+    public void removeById (int id) {
         repository.removeById(id);
     }
 

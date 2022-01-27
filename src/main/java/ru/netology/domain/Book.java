@@ -4,17 +4,15 @@ import java.util.Objects;
 
 public class Book extends Product {
     private String author;
-    private String bookName;
 
 
     public Book() {
         super();
     }
 
-    public Book(int id, int price, String author, String bookName) {
-        super(id, price);
+    public Book(int id, String name, int price, String author) {
+        super(id, name, price);
         this.author = author;
-        this.bookName = bookName;
     }
 
     public String getAuthor() {
@@ -25,17 +23,32 @@ public class Book extends Product {
         this.author = author;
     }
 
-    public String getBookName() {
-        return bookName;
-    }
-
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    @Override
+    public boolean matches(String search) {
+        if (super.matches(search) || getAuthor().contains(search)) {
+            return true;
+        }
+        return false;
     }
 
     @Override
-    public boolean matches (String search) {
-        return super.matches(search) || author.equals(search);
+    public String toString() {
+        return "Book{" +
+                "author='" + author + '\'' +
+                '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Book book = (Book) o;
+        return Objects.equals(author, book.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), author);
+    }
 }
